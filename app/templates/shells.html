@@ -3,9 +3,9 @@
 <div class="center">
     <h1 class="title">{{ title }}</h1>
     <div class="text-left">
-        &#9758; Login Shell - when you login this is what you get.<br>
-        &#9758; Interactive Shell - inherits from login shell, sources user profile and rc files in that order.<br>
-        &#9758; Non-interactive Shell - does not source user profile or rc files. (e.g. a script calling a script).<br>
+        {%  for key, shell in shells.items() %}
+            &#9654; {{ key }} - {{ shell }} <br>
+        {% endfor %}
     </div>
     {% include 'buttons.html' %}
 </div>

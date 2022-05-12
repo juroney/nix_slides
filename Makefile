@@ -1,4 +1,4 @@
-.PHONY: clean clean-pyc help lint install-deps run-app
+.PHONY: clean clean-pyc help build-app
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -28,7 +28,7 @@ clean-pyc: ## remove Python file artifacts
 clean-test: ## remove test and coverage artifacts
 	rm -rf .pytest_cache/
 
-docker-build: ## Build and run
+build-app: ## Build and run
 	docker build -t nix_slides . && ${MAKE} run-app
 
 run-app: ## Run this pathetic app
