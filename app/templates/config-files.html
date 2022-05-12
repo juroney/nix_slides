@@ -1,0 +1,13 @@
+{% include 'base.html' %}
+<body>
+<div class="center">
+<h1 class="title">{{ title }}</h1>
+    <div class="text-left">
+        &#9758; <code>/etc/profile</code> - system configuration for ksh, bash, etc<br>
+        &#9758; <code>/etc/zprofile</code> - system configuration for zsh<br>
+        &#9758; <code>$HOME/.zprofile</code> - user configuration. Sourced before .zshrc.<br>
+        &#9758; <code>$HOME/.zshrc</code> - user configuration for interactive shells.<br><br>
+    </div>
+    {% include 'buttons.html' %}
+</div>
+</body>
