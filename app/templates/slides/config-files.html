@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="content center text-center">
+        <h1 class="title">{{ title }}</h1>
+        <div class="center text-left comfy-text">
+            {% for key, config in config_files.items() %}
+                <span class="text-black">&#9654;</span><code class="text-white">{{ key }}</code> - {{ config }} <br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
