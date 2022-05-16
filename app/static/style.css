@@ -13,11 +13,22 @@ body {
     display: inline-block;
 }
 
+.h-v-middle {
+    /*
+    use padding to push the top to the middle.
+     */
+    padding-top: 10%;
+}
+
 
 .content {
-    align-items: center;
     width: 100%;
     height: 100%;
+}
+
+.horizontal-center {
+    vertical-align: middle;
+    horiz-align: center;
 }
 
 .footer {
@@ -59,8 +70,20 @@ tr:hover {
     padding: 1em;
 }
 
+.text-sm {
+    font-size: .5em;
+}
+
 .text-med {
     font-size: 1.5em;
+}
+
+.text-large {
+    font-size: 2em;
+}
+
+.text-super-large {
+    font-size: 3.5em;
 }
 
 .text-center {
@@ -80,17 +103,18 @@ tr:hover {
 }
 
 .comfy-text {
-    line-height: 2em;
-    font-size: 2em;
+    line-height: 1.4em;
     margin: 0 auto;
 }
 
 .title {
-    color: #2874fc;
+    // color: #2874fc;
+    color: #1e90ff;
 }
 
 .sub-title {
-    color: #1e90ff;
+    // color: #1e90ff;
+    color: #fefefe;
 }
 
 a {

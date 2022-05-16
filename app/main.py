@@ -22,7 +22,8 @@ prefix = "slides/"
 async def root(request: Request):
     resp = {
         'request': request,
-        "title": "*nix Overview",
+        "title": "Linux Shells Overview",
+        "sub_title": "A high-level overview",
         "next": "/agenda",
         "previous": "/"
     }
@@ -32,9 +33,9 @@ async def root(request: Request):
 @app.get("/agenda", response_class=HTMLResponse)
 async def agenda(request: Request):
     agenda_items = {
-        "one": "Primary differences between Unix and Linux",
+        "one": "Primary differences",
         "two": "Types of shells",
-        "three": "Configuration files",
+        "three": "Configuration profiles",
         "four": "Your shell environment",
         "five": "Configure your environment",
     }

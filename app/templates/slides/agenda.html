@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class="content center text-center">
-    <h1 class="title">{{ title }}</h1>
-    <div class="center text-left comfy-text">
-        {%  for key, value in agenda.items() %}
-            <span class="text-black">&#9654;</span> {{ value}} <br>
-        {% endfor %}
+    <div class="content">
+        <div class="text-center text-large">
+            <h1 class="title">{{ title }}</h1>
+            <div class="center comfy-text text-left text-white text-med">
+                {% for key, value in agenda.items() %}
+                    <span class="text-black">&#9654;</span> {{ value }} <br>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}
