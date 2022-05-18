@@ -116,11 +116,12 @@ async def config_files(request: Request):
     }
     return templates.TemplateResponse(f'{prefix}config-files.html', resp)
 
+
 @app.get("/variables", response_class=HTMLResponse)
 async def variables(request: Request):
     bullets: dict = {
         'Local': {
-            'desc': 'Exists in the scope in which is was instantiated.',
+            'desc': 'Exists in the scope in which is was instantiated',
             'ex': 'local BOXOFROCKS=10 declared inside a function is scoped only to that block of code'
         },
         'Environment': {
@@ -141,6 +142,7 @@ async def variables(request: Request):
     }
     return templates.TemplateResponse(f'{prefix}variables.html', resp)
 
+
 @app.get("/path-environ", response_class=HTMLResponse)
 async def environ(request: Request):
     bullets: list = [
@@ -152,13 +154,31 @@ async def environ(request: Request):
     resp = {
         "request": request,
         "title": "PATH Environment Variable",
-        "next": "/thanks",
+        "next": "/epoch",
         "previous": "/variables",
         "bullets": bullets
     }
     return templates.TemplateResponse(f'{prefix}environ.html', resp)
 
-@app.get("/thanks", response_class=HTMLResponse)
+
+@app.get("/epoch", response_class=HTMLResponse)
+async def epoch(request: Request):
+    bullets: list = [
+        "The number of seconds since 1970-01-01 00:00:00 UTC",
+        "Referred to as UNIX time, POSIX time, EPOCH time",
+        "32-bit signed integer"
+    ]
+    resp = {
+        "request": request,
+        "title": "What is EPOCH?",
+        "next": "/qanda",
+        "previous": "/path-environ",
+        "bullets": bullets
+    }
+    return templates.TemplateResponse(f'{prefix}epoch.html', resp)
+
+
+@app.get("/qanda", response_class=HTMLResponse)
 async def thanks(request: Request):
     resp = {
         "request": request,
@@ -166,7 +186,7 @@ async def thanks(request: Request):
         "next": "/",
         "previous": "/variables"
     }
-    return templates.TemplateResponse(f'{prefix}thanks.html', resp)
+    return templates.TemplateResponse(f'{prefix}qanda.html', resp)
 
 
 if __name__ == '__main__':
