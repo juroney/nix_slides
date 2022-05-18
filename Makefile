@@ -32,5 +32,5 @@ build-app: ## Build and run
 	@docker build -t nix_slides . && ${MAKE} run-app
 
 run-app: ## Run this pathetic app
-	@docker run -d -p 8081:8081 --name nix_slides nix_slides && open http://127.0.0.1:8081/
+	@docker run -d -p 8081:8081 --name nix_slides nix_slides && open http://127.0.0.1:8081
 
