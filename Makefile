@@ -20,17 +20,17 @@ help:
 clean: clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 clean-pyc: ## remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+	@find . -name '*.pyc' -exec rm -f {} +
+	@find . -name '*.pyo' -exec rm -f {} +
+	@find . -name '*~' -exec rm -f {} +
+	@find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test: ## remove test and coverage artifacts
-	rm -rf .pytest_cache/
+	@rm -rf .pytest_cache/
 
 build-app: ## Build and run
-	docker build -t nix_slides . && ${MAKE} run-app
+	@docker build -t nix_slides . && ${MAKE} run-app
 
 run-app: ## Run this pathetic app
-	docker run -d -p 8081:8081 nix_slides && open http://127.0.0.1:8081/
+	@docker run -d -p 8081:8081 --name nix_slides nix_slides && open http://127.0.0.1:8081/
 

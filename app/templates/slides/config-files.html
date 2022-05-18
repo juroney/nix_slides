@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="content center text-center">
-        <h1 class="title">{{ title }}</h1>
-        <div class="center text-left comfy-text">
-            {% for key, config in config_files.items() %}
-                <span class="text-black">&#9654;</span><code class="text-white">{{ key }}</code> - {{ config }} <br>
+    <div class="center content text-center">
+        <h1 class="title text-super-large">{{ title }}</h1>
+        <table class="table-sm center text-white text-med">
+            <thead class="">
+            <tr>
+                <th>Profile</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, value in config_files.items() %}
+                <tr>
+                    <td>
+                        {{ key }}
+                    </td>
+                    <td>
+                        {{ value }}
+                    </td>
+                </tr>
             {% endfor %}
-        </div>
+            </tbody>
+        </table>
     </div>
-{% endblock %}
+{% endblock body %}

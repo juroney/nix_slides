@@ -22,8 +22,8 @@ prefix = "slides/"
 async def root(request: Request):
     resp = {
         'request': request,
-        "title": "Linux Shells Overview",
-        "sub_title": "A high-level overview",
+        "title": "Linux Overview",
+        "sub_title": "A very high-level overview",
         "next": "/agenda",
         "previous": "/"
     }
@@ -51,11 +51,32 @@ async def agenda(request: Request):
 
 @app.get("/prim-diff", response_class=HTMLResponse)
 async def prim_diff(request: Request):
+    bullets = {
+        "one": {
+            "linux": "Born in 1991 - Linus Torvalds",
+            "unix": "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson "
+        },
+        "two": {
+            "linux": "Refers to the Linux Kernel",
+            "unix": "Refers to a proprietary OS"
+        },
+        "three": {
+            "linux": "RedHat, Ubuntu, Fedora, FreeBSD",
+            "unix": "Sun Solaris, AT&T System V, HP-UX, BSD"
+        },
+        "four": {
+            "linux": "Free",
+            "unix": "Available at a cost"
+        },
+
+    }
+
     resp = {
         "request": request,
         "title": "Primary Differences",
         "previous": "/agenda",
         "next": "/shells",
+        "bullets": bullets
     }
     return templates.TemplateResponse(f'{prefix}prim-diff.html', resp)
 
@@ -63,9 +84,9 @@ async def prim_diff(request: Request):
 @app.get("/shells", response_class=HTMLResponse)
 async def shells(request: Request):
     shells = {
-        "Login": "When you login, this is what you get. Sources /etc/{z}profile",
-        "Interactive": "Inherits from login shell. Sources user configs",
-        "Non-interactive": "Does not source user configs. (e.g. script calls a script)",
+        "Login": "Initial login shell denoted with a hyphen (e.g. -zsh, -bash)",
+        "Interactive": "Inherits from login shell. Sources user profile(s)",
+        "Non-interactive": "Does not source user profiles. (e.g. call a script from a script)",
     }
     resp = {
         "request": request,
@@ -81,20 +102,61 @@ async def shells(request: Request):
 @app.get("/config-files", response_class=HTMLResponse)
 async def config_files(request: Request):
     config_files: dict = {
-        '/etc/profile': 'system configuration for ksh, bash, etc.',
-        '/etc/zprofile': 'system configuration for zsh',
-        '$HOME/.zprofile': 'user configuration. Sourced before .zshrc',
-        '$HOME/.zshrc': 'user configuration for interactive shells',
+        '/etc/profile': 'System-wide profile for ksh, bash, etc.',
+        '/etc/zprofile': 'System-wide profile for zsh',
+        '$HOME/.zprofile': 'User profile. Sourced before .zshrc',
+        '$HOME/.zshrc': 'User configuration for interactive shells',
     }
     resp = {
         "request": request,
-        "title": "Config Files",
-        "next": "/thanks",
+        "title": "Configuration Profiles",
+        "next": "/variables",
         "previous": "/shells",
         "config_files": config_files
     }
     return templates.TemplateResponse(f'{prefix}config-files.html', resp)
 
+@app.get("/variables", response_class=HTMLResponse)
+async def variables(request: Request):
+    bullets: dict = {
+        'Local': {
+            'desc': 'Exists in the scope in which is was instantiated.',
+            'ex': 'local BOXOFROCKS=10 declared inside a function is scoped only to that block of code'
+        },
+        'Environment': {
+            'desc': 'Available to descendents',
+            'ex': 'export VAR=important_value becomes available to descendents of the current shell'
+        },
+        'Shell': {
+            'desc': 'Set and used by the shell',
+            'ex': 'Shell variables can be either local or environment'
+        }
+    }
+    resp = {
+        "request": request,
+        "title": "Variables",
+        "next": "/path-environ",
+        "previous": "/config-files",
+        "bullets": bullets
+    }
+    return templates.TemplateResponse(f'{prefix}variables.html', resp)
+
+@app.get("/path-environ", response_class=HTMLResponse)
+async def environ(request: Request):
+    bullets: list = [
+        "Directly affects the shells ability to find commands",
+        "Available to descendents",
+        "Common and easy to modify",
+        "Extremely important to the system as a whole"
+    ]
+    resp = {
+        "request": request,
+        "title": "PATH Environment Variable",
+        "next": "/thanks",
+        "previous": "/variables",
+        "bullets": bullets
+    }
+    return templates.TemplateResponse(f'{prefix}environ.html', resp)
 
 @app.get("/thanks", response_class=HTMLResponse)
 async def thanks(request: Request):
@@ -102,7 +164,7 @@ async def thanks(request: Request):
         "request": request,
         "title": "Q & A",
         "next": "/",
-        "previous": "/config-files"
+        "previous": "/variables"
     }
     return templates.TemplateResponse(f'{prefix}thanks.html', resp)
 
