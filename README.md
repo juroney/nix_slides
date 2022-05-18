@@ -2,7 +2,10 @@
 
 ## Pre-reqs
 
-1. You need docker installed and running.
+1. You need docker equivalent installed
+2. `brew install rancher`
+3. Stop Docker Desktop if running
+4. Start Rancher Desktop
 
 ## Run the app
 
