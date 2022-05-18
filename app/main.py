@@ -36,8 +36,8 @@ async def agenda(request: Request):
         "one": "Primary differences",
         "two": "Types of shells",
         "three": "Configuration profiles",
-        "four": "Your shell environment",
-        "five": "Configure your environment",
+        "four": "Important variables",
+        "five": "EPOCH",
     }
     resp = {
         'request': request,
