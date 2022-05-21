@@ -15,7 +15,7 @@ templates_dir = path / "templates"
 app.mount("/static", StaticFiles(directory=static_path), name="static")
 templates = Jinja2Templates(directory=templates_dir)
 
-prefix = "slides/"
+prefix = "slides"
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -27,7 +27,7 @@ async def root(request: Request):
         "next": "/agenda",
         "previous": "/"
     }
-    return templates.TemplateResponse(f'{prefix}index.html', resp)
+    return templates.TemplateResponse(f'{prefix}/index.html', resp)
 
 
 @app.get("/agenda", response_class=HTMLResponse)
@@ -46,7 +46,7 @@ async def agenda(request: Request):
         "next": "/prim-diff",
         "items": agenda_items,
     }
-    return templates.TemplateResponse(f'{prefix}agenda.html', resp)
+    return templates.TemplateResponse(f'{prefix}/agenda.html', resp)
 
 
 @app.get("/prim-diff", response_class=HTMLResponse)
@@ -79,7 +79,7 @@ async def prim_diff(request: Request):
         "thead_two": "UNIX",
         "items": items,
     }
-    return templates.TemplateResponse(f'{prefix}prim-diff.html', resp)
+    return templates.TemplateResponse(f'{prefix}/prim-diff.html', resp)
 
 
 @app.get("/shells", response_class=HTMLResponse)
@@ -100,7 +100,7 @@ async def shells(request: Request):
         "shells": shells,
     }
 
-    return templates.TemplateResponse(f'{prefix}shells.html', resp)
+    return templates.TemplateResponse(f'{prefix}/shells.html', resp)
 
 
 @app.get("/config-files", response_class=HTMLResponse)
@@ -133,7 +133,7 @@ async def config_files(request: Request):
         "thead_two": "Description",
         "items": config_files
     }
-    return templates.TemplateResponse(f'{prefix}config-files.html', resp)
+    return templates.TemplateResponse(f'{prefix}/config-files.html', resp)
 
 
 @app.get("/variables", response_class=HTMLResponse)
@@ -163,7 +163,7 @@ async def variables(request: Request):
         "header_three": "Example",
         "items": bullets
     }
-    return templates.TemplateResponse(f'{prefix}variables.html', resp)
+    return templates.TemplateResponse(f'{prefix}/variables.html', resp)
 
 
 @app.get("/path-environ", response_class=HTMLResponse)
@@ -181,7 +181,7 @@ async def environ(request: Request):
         "previous": "/variables",
         "items": bullets,
     }
-    return templates.TemplateResponse(f'{prefix}environ.html', resp)
+    return templates.TemplateResponse(f'{prefix}/environ.html', resp)
 
 
 @app.get("/epoch", response_class=HTMLResponse)
@@ -198,7 +198,7 @@ async def epoch(request: Request):
         "previous": "/path-environ",
         "bullets": bullets
     }
-    return templates.TemplateResponse(f'{prefix}epoch.html', resp)
+    return templates.TemplateResponse(f'{prefix}/epoch.html', resp)
 
 
 @app.get("/qanda", response_class=HTMLResponse)
@@ -209,7 +209,7 @@ async def thanks(request: Request):
         "next": "/",
         "previous": "/variables"
     }
-    return templates.TemplateResponse(f'{prefix}qanda.html', resp)
+    return templates.TemplateResponse(f'{prefix}/qanda.html', resp)
 
 
 if __name__ == '__main__':
