@@ -20,7 +20,7 @@ prefix = "slides/"
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-    resp = {
+    resp: dict = {
         'request': request,
         "title": "Linux Overview",
         "sub_title": "A very high-level overview",
@@ -32,67 +32,71 @@ async def root(request: Request):
 
 @app.get("/agenda", response_class=HTMLResponse)
 async def agenda(request: Request):
-    agenda_items = {
-        "one": "Primary differences",
-        "two": "Types of shells",
-        "three": "Configuration profiles",
-        "four": "Important variables",
-        "five": "EPOCH",
-    }
-    resp = {
+    agenda_items = [
+        "Primary differences",
+        "Types of shells",
+        "Configuration profiles",
+        "Important variables",
+        "EPOCH",
+    ]
+    resp: dict = {
         'request': request,
         "title": "Agenda",
         "previous": "/",
         "next": "/prim-diff",
-        "agenda": agenda_items,
+        "items": agenda_items,
     }
     return templates.TemplateResponse(f'{prefix}agenda.html', resp)
 
 
 @app.get("/prim-diff", response_class=HTMLResponse)
 async def prim_diff(request: Request):
-    bullets = {
-        "one": {
-            "linux": "Born in 1991 - Linus Torvalds",
-            "unix": "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson "
-        },
-        "two": {
-            "linux": "Refers to the Linux Kernel",
-            "unix": "Refers to a proprietary OS"
-        },
-        "three": {
-            "linux": "RedHat, Ubuntu, Fedora, FreeBSD",
-            "unix": "Sun Solaris, AT&T System V, HP-UX, BSD"
-        },
-        "four": {
-            "linux": "Free",
-            "unix": "Available at a cost"
-        },
+    items: tuple = (
+        (
+            "Born in 1991 - Linus Torvalds",
+            "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson"
+        ),
+        (
+            "Refers to the Linux Kernel",
+            "Refers to a proprietary OS"
+        ),
+        (
+            "RedHat, Ubuntu, Fedora, FreeBSD",
+            "Sun Solaris, AT&T System V, HP-UX, BSD"
+        ),
+        (
+            "Free",
+            "Available at a cost"
+        ),
+    )
 
-    }
-
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "Primary Differences",
         "previous": "/agenda",
         "next": "/shells",
-        "bullets": bullets
+        "thead_one": "Linux",
+        "thead_two": "UNIX",
+        "items": items,
     }
     return templates.TemplateResponse(f'{prefix}prim-diff.html', resp)
 
 
 @app.get("/shells", response_class=HTMLResponse)
 async def shells(request: Request):
-    shells = {
+    shells: dict = {
         "Login": "Initial login shell denoted with a hyphen (e.g. -zsh, -bash)",
         "Interactive": "Inherits from login shell. Sources user profile(s)",
         "Non-interactive": "Does not source user profiles. (e.g. call a script from a script)",
     }
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "Types of Shells",
+        "description": '"System Profile Slide"',
         "previous": "/prim-diff",
         "next": "/config-files",
+        "thead_one": "Shell",
+        "thead_two": "Description",
         "shells": shells,
     }
 
@@ -101,18 +105,33 @@ async def shells(request: Request):
 
 @app.get("/config-files", response_class=HTMLResponse)
 async def config_files(request: Request):
-    config_files: dict = {
-        '/etc/profile': 'System-wide profile for ksh, bash, etc.',
-        '/etc/zprofile': 'System-wide profile for zsh',
-        '$HOME/.zprofile': 'User profile. Sourced before .zshrc',
-        '$HOME/.zshrc': 'User configuration for interactive shells',
-    }
-    resp = {
+    config_files: tuple = (
+        (
+            '/etc/profile',
+            'System-wide profile for ksh, bash, etc.'
+        ),
+        (
+            '/etc/zprofile',
+            'System-wide profile for zsh'
+        ),
+        (
+            '$HOME/.zprofile',
+            'User profile. Sourced before .zshrc'
+        ),
+        (
+            '$HOME/.zshrc',
+            'User configuration for interactive shells'
+        ),
+    )
+    resp: dict = {
         "request": request,
         "title": "Configuration Profiles",
+        "description": '"System Profile Slide"',
         "next": "/variables",
         "previous": "/shells",
-        "config_files": config_files
+        "thead_one": "Profile",
+        "thead_two": "Description",
+        "items": config_files
     }
     return templates.TemplateResponse(f'{prefix}config-files.html', resp)
 
@@ -121,24 +140,28 @@ async def config_files(request: Request):
 async def variables(request: Request):
     bullets: dict = {
         'Local': {
-            'desc': 'Exists in the scope in which is was instantiated',
-            'ex': 'local BOXOFROCKS=10 declared inside a function is scoped only to that block of code'
+            'col_two': 'Exists in the scope in which is was instantiated',
+            'col_three': 'local BOXOFROCKS=10 declared inside a function is scoped only to that block of code'
         },
         'Environment': {
-            'desc': 'Available to descendents',
-            'ex': 'export VAR=important_value becomes available to descendents of the current shell'
+            'col_two': 'Available to descendents',
+            'col_three': 'export VAR=important_value becomes available to descendents of the current shell'
         },
         'Shell': {
-            'desc': 'Set and used by the shell',
-            'ex': 'Shell variables can be either local or environment'
+            'col_two': 'Set and used by the shell',
+            'col_three': 'Shell variables can be either local or environment'
         }
     }
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "Variables",
+        "description": '"Types of Variables"',
         "next": "/path-environ",
         "previous": "/config-files",
-        "bullets": bullets
+        "header_one": "Type",
+        "header_two": "Description",
+        "header_three": "Example",
+        "items": bullets
     }
     return templates.TemplateResponse(f'{prefix}variables.html', resp)
 
@@ -151,12 +174,12 @@ async def environ(request: Request):
         "Common and easy to modify",
         "Extremely important to the system as a whole"
     ]
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "PATH Environment Variable",
         "next": "/epoch",
         "previous": "/variables",
-        "bullets": bullets
+        "items": bullets,
     }
     return templates.TemplateResponse(f'{prefix}environ.html', resp)
 
@@ -168,7 +191,7 @@ async def epoch(request: Request):
         "Referred to as UNIX time, POSIX time, EPOCH time",
         "32-bit signed integer"
     ]
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "What is EPOCH?",
         "next": "/qanda",
@@ -180,7 +203,7 @@ async def epoch(request: Request):
 
 @app.get("/qanda", response_class=HTMLResponse)
 async def thanks(request: Request):
-    resp = {
+    resp: dict = {
         "request": request,
         "title": "Q & A",
         "next": "/",

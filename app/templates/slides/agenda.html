@@ -3,10 +3,8 @@
     <div class="content">
         <div class="text-center text-large">
             <h1 class="title">{{ title }}</h1>
-            <div class="center comfy-text text-left text-white text-med">
-                {% for key, value in agenda.items() %}
-                    <span class="text-black">&#9654;</span> {{ value }} <br>
-                {% endfor %}
+            <div class="center text-left text-white text-sm">
+                {% include 'one_column_table_no_header.html' %}
             </div>
         </div>
     </div>

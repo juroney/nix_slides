@@ -1,0 +1,24 @@
+<table class="table-sm center text-white text-med">
+    <thead class="">
+    <tr>
+        <th>{{ header_one }}</th>
+        <th>{{ header_two }}</th>
+        <th>{{ header_three }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for col_one, value in items.items() %}
+        <tr>
+            <td>
+                {{ col_one }}
+            </td>
+            <td>
+                {{ value.col_two }}
+            </td>
+            <td>
+                {{ value.col_three }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
