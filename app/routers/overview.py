@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 
-from app.utils import get_referer, get_app_config
+from app.utils import get_referer, config
 
 router = APIRouter(dependencies=[Depends(get_referer)])
-
-config = get_app_config()
 
 
 @router.get("/title", response_class=HTMLResponse)
@@ -19,7 +17,7 @@ async def root(request: Request):
         "previous": await get_referer(request),
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/title.html', resp)
+    return config.templates.TemplateResponse(config.title_template, resp)
 
 
 @router.get("/agenda", response_class=HTMLResponse)
@@ -41,7 +39,7 @@ async def agenda(request: Request):
         "items": agenda_items,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.bullet_slide}', resp)
+    return config.templates.TemplateResponse(config.bullet_template, resp)
 
 
 @router.get("/prim-diff", response_class=HTMLResponse)
@@ -76,7 +74,7 @@ async def prim_diff(request: Request):
         "items": items,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.two_column_table}', resp)
+    return config.templates.TemplateResponse(config.two_column_template, resp)
 
 
 @router.get("/shells", response_class=HTMLResponse)
@@ -98,7 +96,7 @@ async def shells(request: Request):
         "items": items,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.two_column_table}', resp)
+    return config.templates.TemplateResponse(config.two_column_template, resp)
 
 
 @router.get("/config-files", response_class=HTMLResponse)
@@ -133,7 +131,7 @@ async def config_files(request: Request):
         "items": items,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.two_column_table}', resp)
+    return config.templates.TemplateResponse(config.two_column_template, resp)
 
 
 @router.get("/variables", response_class=HTMLResponse)
@@ -165,7 +163,7 @@ async def variables(request: Request):
         "items": bullets,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.three_column_table}', resp)
+    return config.templates.TemplateResponse(config.three_column_template, resp)
 
 
 @router.get("/path-environ", response_class=HTMLResponse)
@@ -186,7 +184,7 @@ async def environ(request: Request):
         "items": bullets,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.bullet_slide}', resp)
+    return config.templates.TemplateResponse(config.bullet_template, resp)
 
 
 @router.get("/epoch", response_class=HTMLResponse)
@@ -206,7 +204,7 @@ async def epoch(request: Request):
         "items": bullets,
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/{config.bullet_slide}', resp)
+    return config.templates.TemplateResponse(config.bullet_template, resp)
 
 
 @router.get("/qanda", response_class=HTMLResponse)
@@ -220,4 +218,4 @@ async def qanda(request: Request):
         "previous": await get_referer(request),
     }
 
-    return config.templates.TemplateResponse(f'{config.overview_prefix}/qanda.html', resp)
+    return config.templates.TemplateResponse('qanda.html', resp)

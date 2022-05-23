@@ -11,10 +11,8 @@ class AppConfig(BaseModel):
     static_path: Path
     templates_dir: Path
     templates: Jinja2Templates
-    title_slide: str
-    slides_prefix: str
-    overview_prefix: str
-    cli_prefix: str
-    bullet_slide: str
-    two_column_table: str
-    three_column_table: str
+    title_template: str
+    code_template: str
+    bullet_template: str
+    two_column_template: str
+    three_column_template: str
