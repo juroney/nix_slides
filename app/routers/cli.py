@@ -176,7 +176,7 @@ async def echo_example(request: Request):
         "request": request,
         "title": "echo Example",
         "description": '"The echo command"',
-        "code": "echo",
+        "code": "echo $PATH",
         "next": f"{router.prefix}/ls",
         "previous": await get_referer(request),
     }
@@ -292,7 +292,8 @@ async def move_command(request: Request):
     bullets = [
         "Not the same as cp",
         "Permanently move files from one location to another",
-        "Move files or directories" "Rename at destination",
+        "Move files or directories",
+        "Rename at destination",
     ]
 
     resp: dict = {
