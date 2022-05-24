@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
 from app.utils import get_referer, config
 
-router = APIRouter(dependencies=[Depends(get_referer)])
+router = APIRouter()
 
 
 @router.get("/title", response_class=HTMLResponse)
@@ -199,7 +199,7 @@ async def epoch(request: Request):
         "request": request,
         "title": "What is the EPOCH?",
         "description": '"EPOCH"',
-        "next": "/qanda",
+        "next": "/cli/title",
         "previous": await get_referer(request),
         "items": bullets,
     }
@@ -214,7 +214,7 @@ async def qanda(request: Request):
         "title": "Q & A",
         "title_override_super_large_text": True,
         "descriptions": '"Questions and Answers"',
-        "next": "/cli",
+        "next": "/title",
         "previous": await get_referer(request),
     }
 

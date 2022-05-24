@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from fastapi import Request
@@ -15,8 +16,9 @@ async def get_referer(request: Request) -> str:
     """
 
     try:
-        referer: str = f"/{request.headers.get('referer').split('/')[-1]}"
-    except AttributeError:
+        referer_header: str = request.headers.get('referer').split(':')
+        referer = re.sub(r'[0-9]+', '', referer_header[-1])
+    except (AttributeError, TypeError):
         referer = '/title'
 
     return referer
@@ -39,7 +41,7 @@ def get_app_config() -> AppConfig:
         templates_dir=templates_dir,
         templates=Jinja2Templates(directory=templates_dir),
         title_template="title.html",
-        code_template="code.html",
+        code_template="code_example.html",
         bullet_template="one_column_no_header_title_block.html",
         two_column_template="two_column_header_title_block.html",
         three_column_template="three_column_header_title_block.html"

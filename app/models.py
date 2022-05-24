@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseConfig, BaseModel
+from pydantic import BaseConfig, BaseModel, validator
 
 
 class AppConfig(BaseModel):
