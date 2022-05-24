@@ -9,6 +9,7 @@ router = APIRouter(prefix="/cli")
 @router.get("/title", response_class=HTMLResponse)
 async def cli(request: Request):
     resp: dict = {
+        "request": request,
         "title": "Command Line Interface",
         "description": "Overview of commonly used cli tools",
         "sub_title": "Overview of commonly used cli tools",
@@ -60,7 +61,6 @@ async def man(request: Request):
         "title": "man",
         "description": '"The man command"',
         "code": "man cp",
-        "command": "man",
         "next": f"{router.prefix}/man-example",
         "items": bullets,
         "previous": await get_referer(request),
@@ -76,7 +76,6 @@ async def man_example(request: Request):
         "title": "man Example",
         "description": '"The man command"',
         "code": "man cp",
-        "command": "man",
         "next": f"{router.prefix}/pwd",
         "previous": await get_referer(request),
     }
@@ -96,7 +95,6 @@ async def pwd(request: Request):
         "title": "pwd",
         "description": '"The pwd command"',
         "code": "pwd",
-        "command": "pwd",
         "next": f"{router.prefix}/pwd-example",
         "items": bullets,
         "previous": await get_referer(request),
@@ -112,7 +110,6 @@ async def pwd_example(request: Request):
         "title": "pwd Example",
         "description": '"The pwd command"',
         "code": "pwd",
-        "command": "pwd",
         "next": f"{router.prefix}/env",
         "previous": await get_referer(request),
     }
@@ -132,7 +129,6 @@ async def env(request: Request):
         "title": "env",
         "description": '"The env command"',
         "code": "env",
-        "command": "env",
         "next": f"{router.prefix}/env-example",
         "items": bullets,
         "previous": await get_referer(request),
@@ -148,8 +144,7 @@ async def env_example(request: Request):
         "title": "env Example",
         "description": '"The env command"',
         "code": "env",
-        "command": "env",
-        "next": f"{router.prefix}/ls",
+        "next": f"{router.prefix}/echo",
         "previous": await get_referer(request),
     }
 
@@ -157,17 +152,16 @@ async def env_example(request: Request):
 
 
 @router.get("/echo", response_class=HTMLResponse)
-async def env(request: Request):
+async def echo(request: Request):
     bullets = [
         "Write arguments to stdout"
     ]
 
     resp: dict = {
         "request": request,
-        "title": "env",
+        "title": "echo",
         "description": '"The echo command"',
         "code": "echo",
-        "command": "echo",
         "next": f"{router.prefix}/echo-example",
         "items": bullets,
         "previous": await get_referer(request),
@@ -183,7 +177,6 @@ async def echo_example(request: Request):
         "title": "echo Example",
         "description": '"The echo command"',
         "code": "echo",
-        "command": "echo",
         "next": f"{router.prefix}/ls",
         "previous": await get_referer(request),
     }
@@ -218,7 +211,6 @@ async def ls_example(request: Request):
         "title": "ls Example",
         "description": '"The ls command"',
         "code": "ls -lathr",
-        "command": "man",
         "next": f"{router.prefix}/mkdir",
         "previous": await get_referer(request),
     }
@@ -253,7 +245,6 @@ async def mkdir_example(request: Request):
         "title": "mkdir Example",
         "description": '"The mkdir command"',
         "code": "mkdir -p parent/child_dir/",
-        "command": "mkdir",
         "next": f"{router.prefix}/copy",
         "previous": await get_referer(request),
     }
