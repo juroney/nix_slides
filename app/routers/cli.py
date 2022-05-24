@@ -22,18 +22,19 @@ async def cli(request: Request):
 
 @router.get("/agenda", response_class=HTMLResponse)
 async def agenda(request: Request):
-    agenda_items = [
-        "man",
-        "pwd",
-        "env",
-        "echo",
-        "ls",
-        "mkdir",
-        "cp",
-        "mv",
-        "touch",
-        "rm",
-    ]
+    agenda_items = (
+        ("man", "format and display the on-line manual pages"),
+        ("pwd", "return working directory name"),
+        ("env", "set environment and execute command, or print environment"),
+        ("grep", "file pattern searcher"),
+        ("echo", "write arguments to the standard output"),
+        ("ls", "list directory contents"),
+        ("mkdir", "make directories"),
+        ("cp", "copy files"),
+        ("mv", "move files"),
+        ("touch", "change file access and modification times"),
+        ("rm", "remove directory entries"),
+    )
 
     resp: dict = {
         "request": request,
@@ -41,10 +42,12 @@ async def agenda(request: Request):
         "description": '"Agenda"',
         "previous": await get_referer(request),
         "next": f"{router.prefix}/man",
+        "thead_one": "Command",
+        "thead_two": "Description",
         "items": agenda_items,
     }
 
-    return config.templates.TemplateResponse(config.bullet_template, resp)
+    return config.templates.TemplateResponse(config.two_column_template, resp)
 
 
 @router.get("/man", response_class=HTMLResponse)
@@ -151,10 +154,45 @@ async def env_example(request: Request):
     return config.templates.TemplateResponse(config.code_template, resp)
 
 
+@router.get("/grep", response_class=HTMLResponse)
+async def env(request: Request):
+    bullets = [
+        "File pattern searcher",
+        "Many variants",
+        "grep, egrep, fgrep, rgrep, bzgrep, bzegrep, bzfgrep, zgrep, zegrep, zfgrep",
+    ]
+
+    resp: dict = {
+        "request": request,
+        "title": "grep",
+        "description": '"The grep command"',
+        "code": "grep",
+        "next": f"{router.prefix}/grep-example",
+        "items": bullets,
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.bullet_template, resp)
+
+
+@router.get("/grep-example", response_class=HTMLResponse)
+async def env_example(request: Request):
+    resp: dict = {
+        "request": request,
+        "title": "grep Example",
+        "description": '"The grep command"',
+        "code": "echo $PATH | grep HOME",
+        "next": f"{router.prefix}/echo",
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.code_template, resp)
+
+
 @router.get("/echo", response_class=HTMLResponse)
 async def echo(request: Request):
     bullets = [
-        "Write arguments to stdout"
+        "Write arguments to stdout",
     ]
 
     resp: dict = {
