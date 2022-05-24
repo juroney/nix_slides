@@ -174,7 +174,8 @@ async def epoch(request: Request):
     bullets: list = [
         "The number of seconds since 1970-01-01 00:00:00 UTC",
         "Referred to as UNIX time, POSIX time, EPOCH time",
-        "32-bit signed integer",
+        "32-bit signed integer for 32-bit systems",
+        "64-bit signed integer for 64-bit systems",
     ]
 
     resp: dict = {
