@@ -9,7 +9,6 @@ router = APIRouter(prefix="/cli")
 @router.get("/title", response_class=HTMLResponse)
 async def cli(request: Request):
     resp: dict = {
-        "request": request,
         "title": "Command Line Interface",
         "description": "Overview of commonly used cli tools",
         "sub_title": "Overview of commonly used cli tools",
@@ -24,6 +23,9 @@ async def cli(request: Request):
 async def agenda(request: Request):
     agenda_items = [
         "man",
+        "pwd",
+        "env",
+        "echo",
         "ls",
         "mkdir",
         "cp",
@@ -75,6 +77,113 @@ async def man_example(request: Request):
         "description": '"The man command"',
         "code": "man cp",
         "command": "man",
+        "next": f"{router.prefix}/pwd",
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.code_template, resp)
+
+
+@router.get("/pwd", response_class=HTMLResponse)
+async def pwd(request: Request):
+    bullets = [
+        "Identify your current working directory",
+        "Returns the absolute path of your current working directory",
+    ]
+
+    resp: dict = {
+        "request": request,
+        "title": "pwd",
+        "description": '"The pwd command"',
+        "code": "pwd",
+        "command": "pwd",
+        "next": f"{router.prefix}/pwd-example",
+        "items": bullets,
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.bullet_template, resp)
+
+
+@router.get("/pwd-example", response_class=HTMLResponse)
+async def pwd_example(request: Request):
+    resp: dict = {
+        "request": request,
+        "title": "pwd Example",
+        "description": '"The pwd command"',
+        "code": "pwd",
+        "command": "pwd",
+        "next": f"{router.prefix}/env",
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.code_template, resp)
+
+
+@router.get("/env", response_class=HTMLResponse)
+async def env(request: Request):
+    bullets = [
+        "Set environment and execute command",
+        "Print the current environment to stdout",
+    ]
+
+    resp: dict = {
+        "request": request,
+        "title": "env",
+        "description": '"The env command"',
+        "code": "env",
+        "command": "env",
+        "next": f"{router.prefix}/env-example",
+        "items": bullets,
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.bullet_template, resp)
+
+
+@router.get("/env-example", response_class=HTMLResponse)
+async def env_example(request: Request):
+    resp: dict = {
+        "request": request,
+        "title": "env Example",
+        "description": '"The env command"',
+        "code": "env",
+        "command": "env",
+        "next": f"{router.prefix}/ls",
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.code_template, resp)
+
+
+@router.get("/echo", response_class=HTMLResponse)
+async def env(request: Request):
+    bullets = [
+        "Write arguments to stdout"
+    ]
+
+    resp: dict = {
+        "request": request,
+        "title": "env",
+        "description": '"The echo command"',
+        "code": "echo",
+        "command": "echo",
+        "next": f"{router.prefix}/echo-example",
+        "items": bullets,
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.bullet_template, resp)
+
+
+@router.get("/echo-example", response_class=HTMLResponse)
+async def echo_example(request: Request):
+    resp: dict = {
+        "request": request,
+        "title": "echo Example",
+        "description": '"The echo command"',
+        "code": "echo",
+        "command": "echo",
         "next": f"{router.prefix}/ls",
         "previous": await get_referer(request),
     }

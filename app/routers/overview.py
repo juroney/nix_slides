@@ -50,7 +50,7 @@ async def prim_diff(request: Request):
             "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson",
         ),
         ("Refers to the Linux Kernel", "Refers to a proprietary OS"),
-        ("RedHat, Ubuntu, Fedora", "Sun Solaris, AT&T System V, HP-UX, BSD, FreeBSD"),
+        ("RedHat, Ubuntu, Fedora", "Sun Solaris, AT&T System V, HP-UX, BSD, FreeBSD*"),
         ("Free", "Available at a cost*"),
     )
 
