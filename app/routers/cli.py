@@ -25,6 +25,7 @@ async def agenda(request: Request):
     agenda_items = [
         "man",
         "ls",
+        "mkdir",
         "cp",
         "mv",
         "touch",
@@ -32,7 +33,7 @@ async def agenda(request: Request):
     ]
 
     resp: dict = {
-        'request': request,
+        "request": request,
         "title": "Agenda",
         "description": '"Agenda"',
         "previous": await get_referer(request),
@@ -176,7 +177,7 @@ async def cp_command(request: Request):
 async def cp_example(request: Request):
     resp: dict = {
         "request": request,
-        "title": "cp",
+        "title": "cp Example",
         "description": '"The cp command"',
         "code": "cp -p file1 file1_new_location",
         "next": f"{router.prefix}/move",
@@ -191,8 +192,7 @@ async def move_command(request: Request):
     bullets = [
         "Not the same as cp",
         "Permanently move files from one location to another",
-        "Move files or directories"
-        "Rename at destination"
+        "Move files or directories" "Rename at destination",
     ]
 
     resp: dict = {
@@ -211,7 +211,7 @@ async def move_command(request: Request):
 async def move_example(request: Request):
     resp: dict = {
         "request": request,
-        "title": "mv",
+        "title": "mv Example",
         "description": '"The mv command"',
         "code": "mv $HOME/file1 $HOME/file1_new_location",
         "next": f"{router.prefix}/touch",
@@ -244,10 +244,43 @@ async def touch_command(request: Request):
 async def touch_example(request: Request):
     resp: dict = {
         "request": request,
-        "title": "touch",
+        "title": "touch Example",
         "description": '"The touch command"',
         "code": "touch placeholder.out",
-        "next": f"{router.prefix}/title",
+        "next": f"{router.prefix}/rm",
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.code_template, resp)
+
+
+@router.get("/rm", response_class=HTMLResponse)
+async def rm_command(request: Request):
+    bullets = [
+        "Remove file(s)",
+        "Recursively remove files",
+    ]
+
+    resp: dict = {
+        "request": request,
+        "title": "rm",
+        "description": '"The rm command"',
+        "next": f"{router.prefix}/rm-example",
+        "items": bullets,
+        "previous": await get_referer(request),
+    }
+
+    return config.templates.TemplateResponse(config.bullet_template, resp)
+
+
+@router.get("/rm-example", response_class=HTMLResponse)
+async def rm_example(request: Request):
+    resp: dict = {
+        "request": request,
+        "title": "rm Example",
+        "description": '"The rm command"',
+        "code": "rm not_an_important_file",
+        "next": "/qanda",
         "previous": await get_referer(request),
     }
 

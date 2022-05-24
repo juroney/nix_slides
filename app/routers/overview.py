@@ -9,7 +9,7 @@ router = APIRouter()
 @router.get("/title", response_class=HTMLResponse)
 async def root(request: Request):
     resp: dict = {
-        'request': request,
+        "request": request,
         "title": "Linux Overview",
         "description": '"A very high-level overview"',
         "sub_title": "A very high-level overview",
@@ -31,7 +31,7 @@ async def agenda(request: Request):
     ]
 
     resp: dict = {
-        'request': request,
+        "request": request,
         "title": "Agenda",
         "description": '"Agenda"',
         "previous": await get_referer(request),
@@ -47,20 +47,11 @@ async def prim_diff(request: Request):
     items: tuple = (
         (
             "Born in 1991 - Linus Torvalds",
-            "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson"
+            "Dev begins in 1969 at Bell Laboratories - Dennis Ritchie, Ken Thompson",
         ),
-        (
-            "Refers to the Linux Kernel",
-            "Refers to a proprietary OS"
-        ),
-        (
-            "RedHat, Ubuntu, Fedora, FreeBSD",
-            "Sun Solaris, AT&T System V, HP-UX, BSD"
-        ),
-        (
-            "Free",
-            "Available at a cost"
-        ),
+        ("Refers to the Linux Kernel", "Refers to a proprietary OS"),
+        ("RedHat, Ubuntu, Fedora, FreeBSD", "Sun Solaris, AT&T System V, HP-UX, BSD"),
+        ("Free", "Available at a cost"),
     )
 
     resp: dict = {
@@ -82,7 +73,10 @@ async def shells(request: Request):
     items: tuple = (
         ("Login", "Initial login shell denoted with a hyphen (e.g. -zsh, -bash)"),
         ("Interactive", "Inherits from login shell. Sources user profile(s)"),
-        ("Non-interactive", "Does not source user profiles. (e.g. call a script from a script)"),
+        (
+            "Non-interactive",
+            "Does not source user profiles. (e.g. call a script from a script)",
+        ),
     )
 
     resp: dict = {
@@ -102,22 +96,10 @@ async def shells(request: Request):
 @router.get("/config-files", response_class=HTMLResponse)
 async def config_files(request: Request):
     items: tuple = (
-        (
-            '/etc/profile',
-            'System-wide profile for ksh, bash, etc.'
-        ),
-        (
-            '/etc/zprofile',
-            'System-wide profile for zsh'
-        ),
-        (
-            '$HOME/.zprofile',
-            'User profile. Sourced before .zshrc'
-        ),
-        (
-            '$HOME/.zshrc',
-            'User configuration for interactive shells'
-        ),
+        ("/etc/profile", "System-wide profile for ksh, bash, etc."),
+        ("/etc/zprofile", "System-wide profile for zsh"),
+        ("$HOME/.zprofile", "User profile. Sourced before .zshrc"),
+        ("$HOME/.zshrc", "User configuration for interactive shells"),
     )
 
     resp: dict = {
@@ -137,18 +119,18 @@ async def config_files(request: Request):
 @router.get("/variables", response_class=HTMLResponse)
 async def variables(request: Request):
     bullets: dict = {
-        'Local': {
-            'col_two': 'Exists in the scope in which is was instantiated',
-            'col_three': 'local BOXOFROCKS=10 declared inside a function is scoped only to that block of code'
+        "Local": {
+            "col_two": "Exists in the scope in which is was instantiated",
+            "col_three": "local BOXOFROCKS=10 declared inside a function is scoped only to that block of code",
         },
-        'Environment': {
-            'col_two': 'Available to descendents',
-            'col_three': 'export VAR=important_value becomes available to descendents of the current shell'
+        "Environment": {
+            "col_two": "Available to descendents",
+            "col_three": "export VAR=important_value becomes available to descendents of the current shell",
         },
-        'Shell': {
-            'col_two': 'Set and used by the shell',
-            'col_three': 'Shell variables can be either local or environment'
-        }
+        "Shell": {
+            "col_two": "Set and used by the shell",
+            "col_three": "Shell variables can be either local or environment",
+        },
     }
 
     resp: dict = {
@@ -172,7 +154,7 @@ async def environ(request: Request):
         "Directly affects the shells ability to find commands",
         "Available to descendents",
         "Common and easy to modify",
-        "Extremely important to the system as a whole"
+        "Extremely important to the system as a whole",
     ]
 
     resp: dict = {
@@ -192,7 +174,7 @@ async def epoch(request: Request):
     bullets: list = [
         "The number of seconds since 1970-01-01 00:00:00 UTC",
         "Referred to as UNIX time, POSIX time, EPOCH time",
-        "32-bit signed integer"
+        "32-bit signed integer",
     ]
 
     resp: dict = {
@@ -218,4 +200,4 @@ async def qanda(request: Request):
         "previous": await get_referer(request),
     }
 
-    return config.templates.TemplateResponse('qanda.html', resp)
+    return config.templates.TemplateResponse("qanda.html", resp)

@@ -16,10 +16,10 @@ async def get_referer(request: Request) -> str:
     """
 
     try:
-        referer_header: str = request.headers.get('referer').split(':')
-        referer = re.sub(r'[0-9]+', '', referer_header[-1])
+        referer_header: str = request.headers.get("referer").split(":")
+        referer = re.sub(r"[0-9]+", "", referer_header[-1])
     except (AttributeError, TypeError):
-        referer = '/title'
+        referer = "/title"
 
     return referer
 
@@ -32,7 +32,7 @@ def get_app_config() -> AppConfig:
     :return:
     """
 
-    path = Path('app').absolute()
+    path = Path("app").absolute()
     static_path = path / "static"
     templates_dir = path / "templates"
 
@@ -44,7 +44,7 @@ def get_app_config() -> AppConfig:
         code_template="code_example.html",
         bullet_template="one_column_no_header_title_block.html",
         two_column_template="two_column_header_title_block.html",
-        three_column_template="three_column_header_title_block.html"
+        three_column_template="three_column_header_title_block.html",
     )
 
     return config

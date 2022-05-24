@@ -16,8 +16,8 @@ app.mount("/static", StaticFiles(directory=config.static_path), name="static")
 
 @app.get("/")
 async def index():
-    return RedirectResponse('/title')
+    return RedirectResponse("/title")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run("main:app")
